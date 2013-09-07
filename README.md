@@ -31,6 +31,21 @@ Concept for a base-building game.
 + Mineral is used to build equipment
 + Biomass is used to feed units
 
++ Each tile is a ground tile, which may or may not be a mineral or zether deposit
++ Vertical offsets?
+	+ Climbing slows down units on their movement
++ Impassible terrain
+	+ Too high an offset
+	+ Dead blocks
+
++ Buildings are entities placed on tiles
+	+ They are built by units
+	+ Units carry resources to the build site
+
++ Units are entities and can run from tile to tile
+	+ They are always bound to a given tile
+	+ They can carry one thing at a time, resource or item
+
 
 
 ## Buildings:
@@ -64,7 +79,7 @@ Concept for a base-building game.
 + Weapons factory
 	+ Converts minerals to weapons
 	+ One activation = one weapon
-	+ Weapons cost (1weap+1zeth or Xmin+Xzeth)
+	+ Weapons cost (1weap+Xzeth or Xmin+Xzeth)
 	+ When weapons are empty, they can be reloaded at the factory
 	+ High mineral cost
 + Point defense
