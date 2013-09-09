@@ -9,7 +9,6 @@ Concept for a base-building game.
 
 
 ## Mission-based:
-
 + Build a planetary cannon, fire it
 + Warp in X units and keep them healthy for Y days, then warp them home
 + Defend a given objective
@@ -49,7 +48,6 @@ Concept for a base-building game.
 
 
 ## Buildings:
-
 + Hyperspace exit point
 	+ When activated, warps in a new unit
 	+ One exit point is offered on game start
