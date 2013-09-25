@@ -1,6 +1,11 @@
 function love.load(arg)
 	gstate = require "gamestate"
 	game = require("game")
+	require("sim")
+	require("dude")
+	require("turret")
+	require("ray")
+	require("rocket")
 	gstate.switch(game)
 end
 
@@ -36,9 +41,9 @@ end
 function keyreleased(key, uni)
 	gstate.keyreleased(key)
 end
-
+local max_dt = 1/30
 function love.update(dt)
-	gstate.update(dt)
+	gstate.update(math.min(dt,max_dt))
 end
 
 function love.draw()
