@@ -31,7 +31,7 @@ function ray.draw( ... )
 	end
 end
 
-function ray.shoot(x1,y1,x2,y2,col,area)
+function ray.shoot(x1,y1,x2,y2,col,area,dmg)
 	local v = {}
 	v.x1=x1
 	v.x2=x2
@@ -56,7 +56,9 @@ function ray.shoot(x1,y1,x2,y2,col,area)
 			local tx,ty = v.getPos()
 			local distance,nx,ny = useful.distance(x2,y2,tx,ty)
 			if distance<area then
-				if col~=v.team then
+				if col~=v.team and v.isUnit then
+					v.takeDamage(dmg or 1)
+				else
 					v.takeDamage(1)
 				end
 			end

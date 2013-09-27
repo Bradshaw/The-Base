@@ -1,7 +1,7 @@
 rocket = {}
 rocket.all = {}
 
-function rocket.shoot(x1,y1,x2,y2,team,area)
+function rocket.shoot(x1,y1,x2,y2,team,area,dmg)
 	local self = {}
 	self.size = 0
 	local x,y = x1,y1
@@ -15,7 +15,7 @@ function rocket.shoot(x1,y1,x2,y2,team,area)
 	function self.update(dt)
 		local range, nx, ny = useful.distance(tx,ty,x,y)
 		if range<area/2 then
-			ray.shoot(x,y,x,y,team,area)
+			ray.shoot(x,y,x,y,team,area,dmg)
 			self.purge = true
 		end
 		vx=vx+nx*10*dt

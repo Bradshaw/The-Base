@@ -3,7 +3,7 @@ turret = {}
 
 function turret.new(x, y, team)
 	local self = {}
-	self.size = 15
+	self.size = 10
 	self.isTurret = true
 	local x = x or math.random(0,love.graphics.getWidth())
 	local y = y or math.random(0,love.graphics.getHeight())
@@ -57,10 +57,10 @@ function turret.new(x, y, team)
 			local range, nx, ny = useful.distance(tx,ty,x,y)
 			if range<150 then
 				if shoottime>shootdelay then
-					--ray.shoot(x,y-5,tx,ty-5,self.team,1)
-					rocket.shoot(x,y-5,tx,ty-5,self.team,20)
+					ray.shoot(x,y-5,tx,ty-5,self.team,2)
+					--rocket.shoot(x,y-5,tx,ty-5,self.team,20)
 					shoottime = 0
-					--target.takeDamage(1)
+					target.takeDamage(1)
 				end
 			end
 		end

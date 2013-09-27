@@ -62,7 +62,12 @@ function state:enter()
 end
 
 function spawn(team)
-	local d = dude.new(useful.tri(team=="red",30,love.graphics.getWidth())-math.random(0,30), math.random(0,love.graphics.getHeight()), team )
+	local d = useful.tri(
+		useful.tri(team==
+			"red",
+			math.random()<0.1,
+			math.random()<0.1)
+		,dude,laserdude).new(useful.tri(team=="red",30,love.graphics.getWidth())-math.random(0,30), math.random(0,love.graphics.getHeight()), team )
 	--local d = dude.new()
 	sim.register(d)
 end
@@ -125,7 +130,7 @@ function state:update(dt)
 	spawntime = spawntime-dt
 	if spawntime<0 then
 		spawnamt = q
-		q = math.min(q+0.3,10)
+		q = math.min(q*2,25)
 		spawntime=spawntime+5
 	end
 	if not stopped and spawnamt>0 then
@@ -140,7 +145,7 @@ function state:update(dt)
 		end
 	end
 	--]]
-	if stopped then
+	if false and stopped then
 		if rhp==0 then
 			bluewin = bluewin+1
 		else
@@ -174,8 +179,8 @@ end
 
 function state:draw()
 	love.graphics.setBackgroundColor(127,100,127)
-	sim.draw()
 	ray.draw()
+	sim.draw()
 	if stopped then
 		love.graphics.setColor(0,0,0)
 		local w = love.graphics.getFont():getWidth(stopmessage)

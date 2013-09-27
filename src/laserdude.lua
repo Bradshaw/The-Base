@@ -1,9 +1,9 @@
 require("useful")
-dude = {}
+laserdude = {}
 
-function dude.new(x, y, team)
+function laserdude.new(x, y, team)
 	local self = {}
-	self.size = 7
+	self.size = 4
 	self.isUnit = true
 	local x = x or math.random(0,love.graphics.getWidth())
 	local y = love.graphics.getHeight()/2 + math.random(-10,10) --y or math.random(0,love.graphics.getHeight())
@@ -22,7 +22,7 @@ function dude.new(x, y, team)
 	end
 
 	function self.aquireTarget()
-		if true or (not target) or target.purge then
+		if (not target) or target.purge then
 			local tries = 0
 			--local maxTries = 10
 			--while tries<maxTries and (not target or target.purge) do
@@ -44,25 +44,25 @@ function dude.new(x, y, team)
 		end
 	end
 	local vx, vy = 0, 0
-	local health = 3
+	local health = 10
 	function self.move(dt)
 		if target and (not target.purge) and target.getPos then
 			local tx, ty = target.getPos()
 			local range, nx, ny = useful.distance(tx,ty,x,y)
-			if range>295 then
-				vx=vx+nx*40*dt*(health/3)
-				vy=vy+ny*40*dt*(health/3)
+			if range>45 then
+				vx=vx+nx*40*dt*(health/10)
+				vy=vy+ny*40*dt*(health/10)
 			end
-			if range<200 then
-				vx=vx-nx*40*dt*(health/3)
-				vy=vy-ny*40*dt*(health/3)
+			if range<15 then
+				vx=vx-nx*40*dt*(health/10)
+				vy=vy-ny*40*dt*(health/10)
 			end
 		end
 		for i,v in ipairs(sim.collection) do
 			if v.size and v~=self and v.getPos then
 				local tx, ty = v.getPos()
 				local range, nx, ny = useful.distance(tx,ty,x,y)
-				if range<(v.size) then
+				if range<v.size then
 					vx=vx-nx*100*dt*((20-range)/20)
 					vy=vy-ny*100*dt*((20-range)/20)
 				end
@@ -71,19 +71,19 @@ function dude.new(x, y, team)
 		local speed, sx, sy  = useful.distance(vx,vy)
 		vx = vx-vx*math.abs(speed*dt*0.4)
 		vy = vy-vy*math.abs(speed*dt*0.4)
-		x = x+vx*dt*4
-		y = y+vy*dt*4
+		x = x+vx*dt*10
+		y = y+vy*dt*10
 		x = math.max(0,math.min(x, love.graphics.getWidth()))
 		y = math.max(0,math.min(y, love.graphics.getHeight()))
 	end
 
 
 	local shoottime = 10000
-	local shootdelay = 10
+	local shootdelay = 5
 	function self.shoot(dt)
 		shoottime = shoottime+dt
 		local list = {}
-		---[[]
+		--[[]
 		for i,v in ipairs(sim.collection) do
 			local tx, ty = v.getPos()
 			local range, nx, ny = useful.distance(tx,ty,x,y)
@@ -92,16 +92,16 @@ function dude.new(x, y, team)
 			end
 		end
 		--]]
-		local target = useful.tri(#list>0,list[math.random(1,#list)]) or target
+		--local target = useful.tri(#list>0,list[math.random(1,#list)]) or target
 		---[[]
 		if target and not target.purge then
 			local tx, ty = target.getPos()
 			local range, nx, ny = useful.distance(tx,ty,x,y)
-			if range<300 then
+			if range<50 then
 				if shoottime>shootdelay/health then
-					rocket.shoot(x,y-5,tx,ty-5,self.team,20,5)
+					ray.shoot(x,y-5,tx,ty-5,self.team,4)
 					shoottime = 0
-					--target.takeDamage(1)
+					target.takeDamage(1)
 				end
 			end
 		end
@@ -111,14 +111,14 @@ function dude.new(x, y, team)
 		health = health - dmg
 		if health<=0 then
 			self.purge = true
-			--local d = dude.new(useful.tri(self.team=="red",30,love.graphics.getWidth())-math.random(0,30),math.random(0,love.graphics.getHeight()), useful.tri(self.team=="red","red","blu"))
+			--local d = laserdude.new(useful.tri(self.team=="red",30,love.graphics.getWidth())-math.random(0,30),math.random(0,love.graphics.getHeight()), useful.tri(self.team=="red","red","blu"))
 			--sim.register(d)
 		end
 	end
 
 	function self.predraw()
 		love.graphics.setColor(0,0,0,30)
-		love.graphics.rectangle("fill",x-5,y-3,11,7)
+		love.graphics.rectangle("fill",x-4,y-3,9,5)
 		if target and target.getPos then
 			local tx, ty = target.getPos()
 			love.graphics.setColor(255,255,255,10)
@@ -133,7 +133,7 @@ function dude.new(x, y, team)
 		else
 			love.graphics.setColor(0,127,255)
 		end
-		love.graphics.rectangle("fill",x-2,y-(health/3)*9,5,(health/3)*9)
+		love.graphics.rectangle("fill",x-1,y-(health/10)*7,3,(health/10)*7)
 		if shoottime<0.1 then
 		end
 	end
