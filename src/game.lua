@@ -71,7 +71,7 @@ function state:keypressed(key, uni)
 		love.event.push("quit")
 	end
 	if key=="left" then
-		if sely%2 == 0 then
+		if sely%2 ~= 0 then
 			selx = selx-1
 			sely = sely-1
 		else
@@ -80,7 +80,7 @@ function state:keypressed(key, uni)
 		end
 	end
 	if key=="right" then
-		if sely%2 == 0 then
+		if sely%2 ~= 0 then
 			--selx = selx+1
 			sely = sely-1
 		else
@@ -93,6 +93,10 @@ function state:keypressed(key, uni)
 	end
 	if key=="down" then
 		sely = sely+2
+	end
+	if key==" " then
+		local t = tiles[selx][sely]
+		t.val = (t.val+1)%4
 	end
 end
 
@@ -139,7 +143,7 @@ function state:draw()
 
 	if tiles[selx] and tiles[selx][sely] then
 		local v = tiles[selx][sely]
-		--love.graphics.draw(selim,selx*xoff+(sely%2)*oddxoff,sely*yoff-v.val+v.p)
+		love.graphics.draw(selim,(selx-1)*xoff+((sely-1)%2)*oddxoff,(sely-1)*yoff-v.val+v.p)
 	end
 	love.graphics.setColor(40,45,45)
 	--love.graphics.print((selx-4)..' '..(sely-4),selx*xoff+(sely%2)*oddxoff,sely*yoff)
