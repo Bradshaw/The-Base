@@ -65,8 +65,8 @@ function spawn(team)
 	local d = useful.tri(
 		useful.tri(team==
 			"red",
-			math.random()<0.1,
-			math.random()<0.1)
+			math.random()<0.05,
+			math.random()<0.05)
 		,dude,laserdude).new(useful.tri(team=="red",30,love.graphics.getWidth())-math.random(0,30), math.random(0,love.graphics.getHeight()), team )
 	--local d = dude.new()
 	sim.register(d)
@@ -130,7 +130,7 @@ function state:update(dt)
 	spawntime = spawntime-dt
 	if spawntime<0 then
 		spawnamt = q
-		q = math.min(q*2,25)
+		q = math.min(q*2,15)
 		spawntime=spawntime+5
 	end
 	if not stopped and spawnamt>0 then
