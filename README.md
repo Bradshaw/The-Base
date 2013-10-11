@@ -23,9 +23,9 @@ Concept for a base-building game.
 + Resources are on grid and can be mined
 + Resources need to be ferried to where they're useful
 + Resources are semi-limited
-	+ Biomass grows faster when the biomass amount is high
-	+ Zether is limited
-	+ Mineral grows in an EVE capacitor-style curve
+	+ Biomass grows faster when the ground is fertile
+	+ Zether is limited (piles of Zether)
+	+ Mineral grows in an EVE capacitor-style curve (Piles of regenerating mineral)
 + Zether is used to power equipment
 + Mineral is used to build equipment
 + Biomass is used to feed units
